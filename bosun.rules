@@ -51,10 +51,6 @@ macro anomaly.erratic {
 # templates #
 #############
 
-template mattermost {
-  MattermostBody = `payload={"username": "bosun-bot", "text": "{{.Subject}} <{{.Incident}}|view in bosun>"}`
-}
-
 template bosun.annotation {
   BosunBody = `{"Id":"","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.q}} on {{.Group.host}}","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{.Group.host}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
   BosunBodyAnomaly = `{"Id":"","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.s_current_median | printf "%.2f"}} (then: {{.Eval .Alert.Vars.s_hist_median | printf "%.2f"}})","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{.Group.host}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
@@ -77,12 +73,6 @@ notification bosun.annotation.elastic {
   post = http://127.0.0.1:8070/api/annotation
   bodyTemplate = BosunBodyElastic
   contentType = application/json
-}
-
-notification mattermost {
-  post = http://gevispoc.eb.lan.at/hooks/hh4a9kjpepri383j4s7pn7f9zw
-  #select slack body template
-  bodyTemplate = MattermostBody
 }
 
 notification default {
@@ -583,7 +573,7 @@ template logstash.cpu_usage_idle {
     {{.Graph .Alert.Vars.idle_series_by_host_historical}}
 `
     subject = {{.Last.Status}}: {{.Alert.Name}} : {{.Eval .Alert.Vars.idle_total | printf "%.0f"}}% cpu idle in cluster. {{.Eval .Alert.Vars.num_hosts_low}} of {{.Eval .Alert.Vars.num_hosts}} hosts have insufficient cpu idle
-    inherit = mattermost
+    inherit = bosun.annotation
 }
 
 alert tsdb.added_points {
