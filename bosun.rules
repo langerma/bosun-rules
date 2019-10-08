@@ -205,8 +205,6 @@ template ex {
         inherit = bosun.annotation
 }
 
-
-
 ##############
 # mem_checks #
 ##############
