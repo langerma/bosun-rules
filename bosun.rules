@@ -924,7 +924,7 @@ alert linux.nstat_tcp {
 		same time, combining them into a single alert reduces
 		notification noise.`
 	template = linux.tcp
-	$time = 1h
+	$time = 6h
 	$abort_failed = change("sum:rate{counter,,1}:nstat_TcpExtTCPAbortFailed{host=*}", "$time", "")
 	$abort_mem = change("sum:rate{counter,,1}:nstat_TcpExtTCPAbortOnMemory{host=*}", "$time", "")
 	$ofo_pruned = change("sum:rate{counter,,1}:nstat_TcpExtOfoPruned{host=*}", "$time", "")
