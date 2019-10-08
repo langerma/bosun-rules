@@ -951,8 +951,9 @@ alert linux.nstat_tcp {
 	$backlog_drop = change("sum:rate{counter,,1}:nstat_TcpExtTCPBacklogDrop{host=*}", "$time", "")
 	$syncookies_sent = change("sum:rate{counter,,1}:nstat_TcpExtSyncookiesSent{host=*}", "$time", "")
 	$total_err = $abort_failed + $ofo_pruned + $rcv_pruned + $backlog_drop + $syncookies_sent
+	$q = $total_err
 	warn = $abort_failed || $ofo_pruned > 100 || $rcv_pruned > 100 || $backlog_drop > lookup("linux_tcp", "backlog_drop_threshold_warn")  || $syncookies_sent
 	crit = $abort_failed || $ofo_pruned > 200 || $rcv_pruned > 200 || $backlog_drop > lookup("linux_tcp", "backlog_drop_threshold_crit")  || $syncookies_sent
-	#critNotification = default,bosun.annotation
-    #warnNotification = default,bosun.annotation
+	critNotification = bosun.annotation
+    warnNotification = bosun.annotation
 }
