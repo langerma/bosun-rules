@@ -916,25 +916,6 @@ template linux.tcp {
 	inherit = bosun.annotation
 }
 
-#alert linux.tcp {
-#	#macro = host_based
-#	$notes = `
-#		This alert checks for various errors or possible issues in the
-#		TCP stack of a Linux host. Since these tend to happen at the
-#		same time, combining them into a single alert reduces
-#		notification noise.`
-#	template = linux.tcp
-#	$time = 1h
-#	$abort_failed = change("sum:rate{counter,,1}:linux.net.stat.tcp.abortfailed{host=*}", "$time", "")
-#	$abort_mem = change("sum:rate{counter,,1}:linux.net.stat.tcp.abortonmemory{host=*}", "$time", "")
-#	$ofo_pruned = change("sum:rate{counter,,1}:linux.net.stat.tcp.ofopruned{host=*}", "$time", "")
-#	$rcv_pruned = change("sum:rate{counter,,1}:linux.net.stat.tcp.rcvpruned{host=*}", "$time", "")
-#	$backlog_drop = change("sum:rate{counter,,1}:linux.net.stat.tcp.backlogdrop{host=*}", "$time", "")
-#	$syncookies_sent = change("sum:rate{counter,,1}:linux.net.stat.tcp.syncookiessent{host=*}", "$time", "")
-#	$total_err = $abort_failed + $ofo_pruned + $rcv_pruned + $backlog_drop + $syncookies_sent
-#	warn = $abort_failed || $ofo_pruned > 100 || $rcv_pruned > 100 || $backlog_drop > lookup("linux_tcp", "backlog_drop_threshold")  || $syncookies_sent
-#}
-
 alert linux.nstat_tcp {
 	#macro = host_based
 	$notes = `
