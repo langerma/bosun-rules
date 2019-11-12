@@ -247,8 +247,8 @@ alert ping.packet_loss {
     template = ex
     $metric = q("sum:ping_percent_packet_loss{host=*}", "30m", "")
     $q = avg($metric)
-    crit = $q > 9
-    warn = $q > 8
+    crit = $q > 22
+    warn = $q > 20
     unknown = 6m
     warnNotification = default,bosun.annotation
     critNotification = default,bosun.annotation
