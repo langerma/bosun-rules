@@ -520,7 +520,8 @@ template elastic.error {
 
 alert elastic.hbase {
     template = elastic.error
-    $index = esmonthly("@timestamp","hbase-","2006.01")
+    #$index = esmonthly("@timestamp","hbase-","2006.01")
+    $index = esindices("@timestamp","hbase_read")
     $filter=esquery("severity", "WARN or ERROR")
     $q=escount($index, "host.name.keyword", $filter, "1m", "15m", "")
     $graph=escount($index, "severity.keyword", $filter, "1m", "15m", "")
@@ -535,7 +536,8 @@ alert elastic.hbase {
 
 alert elastic.hadoop {
     template = elastic.error
-    $index = esmonthly("@timestamp","hadoop-","2006.01")
+    #$index = esmonthly("@timestamp","hadoop-","2006.01")
+    $index = esindices("@timestamp","hadoop_read")
     $filter=esquery("severity", "WARN or ERROR")
     $q=escount($index, "host.name.keyword", $filter, "1m", "15m", "")
     $graph=escount($index, "severity.keyword", $filter, "1m", "15m", "")
