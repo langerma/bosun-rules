@@ -273,7 +273,7 @@ lookup connectivity {
     entry host=* {
         warn_loss = 5
         crit_loss = 10
-        warn_resp = 15
+        warn_resp = 18
         crit_resp = 30
         
     }
