@@ -246,8 +246,8 @@ lookup connectivity {
     entry host=jetson {
         warn_loss = 28
         crit_loss = 33
-        warn_resp = 120
-        crit_resp = 150
+        warn_resp = 130
+        crit_resp = 160
     }
     entry host=dns {
         warn_loss = 15
