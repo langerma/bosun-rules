@@ -244,8 +244,8 @@ alert bsd.pkg.update {
 ######################
 lookup connectivity {
     entry host=jetson {
-        warn_loss = 25
-        crit_loss = 30
+        warn_loss = 28
+        crit_loss = 33
         warn_resp = 120
         crit_resp = 150
     }
