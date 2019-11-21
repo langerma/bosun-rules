@@ -259,8 +259,8 @@ lookup connectivity {
     entry host=pine* {
         warn_loss = 15
         crit_loss = 20
-        warn_resp = 30
-        crit_resp = 40
+        warn_resp = 50
+        crit_resp = 55
         
     }
     entry host=freebsd* {
