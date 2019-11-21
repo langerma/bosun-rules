@@ -242,13 +242,49 @@ alert bsd.pkg.update {
 ######################
 # connectivity check #
 ######################
+lookup connectivity {
+    entry host=jetson {
+        warn_loss = 30
+        crit_loss = 40
+        warn_resp = 100
+        crit_resp = 150
+    }
+    entry host=dns {
+        warn_loss = 15
+        crit_loss = 20
+        warn_resp = 25
+        crit_resp = 30
+        
+    }
+    entry host=pine* {
+        warn_loss = 15
+        crit_loss = 20
+        warn_resp = 30
+        crit_resp = 40
+        
+    }
+    entry host=freebsd* {
+        warn_loss = 5
+        crit_loss = 10
+        warn_resp = 20
+        crit_resp = 30
+        
+    }
+    entry host=* {
+        warn_loss = 5
+        crit_loss = 10
+        warn_resp = 15
+        crit_resp = 30
+        
+    }
+}
 
 alert ping.packet_loss {
     template = ex
     $metric = q("sum:ping_percent_packet_loss{host=*}", "30m", "")
     $q = avg($metric)
-    crit = $q > 22
-    warn = $q > 20
+    crit = $q > lookup("connectivity", "crit_loss")
+    warn = $q > lookup("connectivity", "warn_loss")
     unknown = 6m
     warnNotification = default,bosun.annotation
     critNotification = default,bosun.annotation
@@ -258,8 +294,8 @@ alert ping.average_response {
     template = ex
     $metric = q("sum:ping_average_response_ms{host=*}", "120m", "")
     $q = avg($metric)
-    crit = $q > 80
-    warn = $q > 75
+    crit = $q > lookup("connectivity", "crit_resp")
+    warn = $q > lookup("connectivity", "warn_resp")
     unknown = 6m
     warnNotification = default,bosun.annotation
     critNotification = default,bosun.annotation
