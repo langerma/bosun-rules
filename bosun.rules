@@ -252,8 +252,8 @@ lookup connectivity {
     entry host=dns {
         warn_loss = 18
         crit_loss = 22
-        warn_resp = 30
-        crit_resp = 35
+        warn_resp = 35
+        crit_resp = 45
         
     }
     entry host=pine* {
