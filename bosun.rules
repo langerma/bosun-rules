@@ -244,16 +244,16 @@ alert bsd.pkg.update {
 ######################
 lookup connectivity {
     entry host=jetson {
-        warn_loss = 28
-        crit_loss = 33
+        warn_loss = 30
+        crit_loss = 35
         warn_resp = 130
         crit_resp = 160
     }
     entry host=dns {
-        warn_loss = 15
-        crit_loss = 20
-        warn_resp = 25
-        crit_resp = 30
+        warn_loss = 18
+        crit_loss = 22
+        warn_resp = 30
+        crit_resp = 35
         
     }
     entry host=pine* {
@@ -266,8 +266,8 @@ lookup connectivity {
     entry host=freebsd* {
         warn_loss = 5
         crit_loss = 10
-        warn_resp = 20
-        crit_resp = 30
+        warn_resp = 25
+        crit_resp = 35
         
     }
     entry host=* {
