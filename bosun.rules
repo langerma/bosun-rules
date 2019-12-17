@@ -758,6 +758,27 @@ alert elastic.index_events {
     warnNotification = default,bosun.annotation.anomaly
 }
 
+alert logstash.events {
+    $tpl_desc = "events per node this rate should not drop or rise drastically"
+    $q_duration = "1h"
+    $q_metric = "sum:rate{counter,,1}:logstash_events_in{host=*}"
+    $q_period = "7d"
+    $q_lookback = 5
+    $g_std_warn = 20
+    $g_std_crit = 30
+    $g_min_med_diff = 1
+    $g_max_erratic_warn = 1.6
+    $g_max_erratic_crit = 1.9
+    $g_max_num_issues_crit = 20
+    template = anomaly
+    macro = anomaly.erratic
+    ignoreUnknown = true
+    unjoinedOk = true
+    runEvery = 60
+    critNotification = default,bosun.annotation.anomaly
+    warnNotification = default,bosun.annotation.anomaly
+}
+
 
 template elastic.index_time {
         body = `<a href="{{.Ack}}">Acknowledge alert</a>
