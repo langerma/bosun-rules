@@ -683,6 +683,48 @@ alert environment.humidity {
     warnNotification = default,bosun.annotation
 }
 
+alert environment.co2.wohnzimmer {
+    $time = 60m
+    #ignoreUnknown = true
+    $alertDescr = checks for co in livingroom\n
+    $metric_simple = q("sum:exec_netatmo_langerma_Wohnzimmer_CO2{}{}", "$time", "")
+    $q = avg($metric_simple)
+    $crit_low_value = 100
+    $warn_low_value = 300
+    $crit_high_value = 800
+    $warn_high_value = 950
+    warn = $q < $warn_low_value || $q >= $warn_high_value
+    crit = $q <= $crit_low_value || $q > $crit_high_value
+    $now = epoch()
+    $Ago =  $now-d("$time")
+    $metric = merge(series("warn_low=$warn_low_value", $Ago, $warn_low_value, $now, $warn_low_value), series("warn_high=$warn_high_value", $Ago, $warn_high_value, $now, $warn_high_value), series("crit_low=$crit_low_value", $Ago, $crit_low_value, $now, $crit_low_value),series("crit_high=$crit_high_value", $Ago, $crit_high_value, $now, $crit_high_value), $metric_simple)
+    template = generic
+    unknown = 5m
+    critNotification = default,bosun.annotation
+    warnNotification = default,bosun.annotation
+}
+
+alert environment.co2.schlafzimmer {
+    $time = 60m
+    #ignoreUnknown = true
+    $alertDescr = checks for co in livingroom\n
+    $metric_simple = q("sum:exec_netatmo_langerma_Schlafzimmer_CO2{}{}", "$time", "")
+    $q = avg($metric_simple)
+    $crit_low_value = 100
+    $warn_low_value = 300
+    $crit_high_value = 800
+    $warn_high_value = 950
+    warn = $q < $warn_low_value || $q >= $warn_high_value
+    crit = $q <= $crit_low_value || $q > $crit_high_value
+    $now = epoch()
+    $Ago =  $now-d("$time")
+    $metric = merge(series("warn_low=$warn_low_value", $Ago, $warn_low_value, $now, $warn_low_value), series("warn_high=$warn_high_value", $Ago, $warn_high_value, $now, $warn_high_value), series("crit_low=$crit_low_value", $Ago, $crit_low_value, $now, $crit_low_value),series("crit_high=$crit_high_value", $Ago, $crit_high_value, $now, $crit_high_value), $metric_simple)
+    template = generic
+    unknown = 5m
+    critNotification = default,bosun.annotation
+    warnNotification = default,bosun.annotation
+}
+
 alert pine.temp {
     $time = 60m
     #ignoreUnknown = true
