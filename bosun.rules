@@ -687,7 +687,7 @@ alert environment.co2.wohnzimmer {
     $time = 60m
     #ignoreUnknown = true
     $alertDescr = checks for co in livingroom\n
-    $metric_simple = q("sum:exec_netatmo_langerma_Wohnzimmer_CO2{host=*}{}", "$time", "")
+    $metric_simple = q("sum:exec_netatmo_langerma_Wohnzimmer_CO2{host=*}", "$time", "")
     $q = avg($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
@@ -707,8 +707,8 @@ alert environment.co2.wohnzimmer {
 alert environment.co2.schlafzimmer {
     $time = 60m
     #ignoreUnknown = true
-    $alertDescr = checks for co in livingroom\n
-    $metric_simple = q("sum:exec_netatmo_langerma_Schlafzimmer_CO2{host=*}{}", "$time", "")
+    $alertDescr = checks for co in bedroom\n
+    $metric_simple = q("sum:exec_netatmo_langerma_Schlafzimmer_CO2{host=*}", "$time", "")
     $q = avg($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
