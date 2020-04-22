@@ -691,8 +691,8 @@ alert environment.co2.wohnzimmer {
     $q = avg($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
-    $crit_high_value = 800
-    $warn_high_value = 950
+    $crit_high_value = 1200
+    $warn_high_value = 800
     warn = $q < $warn_low_value || $q >= $warn_high_value
     crit = $q <= $crit_low_value || $q > $crit_high_value
     $now = epoch()
@@ -700,8 +700,8 @@ alert environment.co2.wohnzimmer {
     $metric = merge(series("warn_low=$warn_low_value", $Ago, $warn_low_value, $now, $warn_low_value), series("warn_high=$warn_high_value", $Ago, $warn_high_value, $now, $warn_high_value), series("crit_low=$crit_low_value", $Ago, $crit_low_value, $now, $crit_low_value),series("crit_high=$crit_high_value", $Ago, $crit_high_value, $now, $crit_high_value), $metric_simple)
     template = generic
     unknown = 5m
-    critNotification = default,bosun.annotation
     warnNotification = default,bosun.annotation
+    critNotification = default,bosun.annotation
 }
 
 alert environment.co2.schlafzimmer {
@@ -712,8 +712,8 @@ alert environment.co2.schlafzimmer {
     $q = avg($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
-    $crit_high_value = 800
-    $warn_high_value = 950
+    $crit_high_value = 1200
+    $warn_high_value = 800
     warn = $q < $warn_low_value || $q >= $warn_high_value
     crit = $q <= $crit_low_value || $q > $crit_high_value
     $now = epoch()
