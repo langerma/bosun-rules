@@ -219,8 +219,8 @@ alert bsd.pkg.security {
     template = ex
     $metric = q("sum:pkg_nagios_value{host=*,perfdata=security_problems,unit=i}", "10m", "")
     $q = last($metric)
-    crit = $q > 1
-    warn = $q > 0
+    crit = $q > 5
+    warn = $q > 2
     #ignoreUnknown = true
     unknown = 5m
     warnNotification = default,bosun.annotation
@@ -231,8 +231,8 @@ alert bsd.pkg.update {
     template = ex
     $metric = q("sum:pkg_nagios_value{host=*,perfdata=total_updates,unit=i}", "10m", "")
     $q = last($metric)
-    crit = $q > 8
-    warn = $q > 5
+    crit = $q > 40
+    warn = $q > 30
     #ignoreUnknown = true
     unknown = 5m
     warnNotification = default,bosun.annotation
