@@ -683,6 +683,58 @@ alert environment.humidity {
     warnNotification = default,bosun.annotation
 }
 
+alert environment.temperature.wohnzimmer {
+    $time = 60m
+    #ignoreUnknown = true
+    $alertDescr =  if temp is to high or to low\n
+    #$t1 = q("sum:sensehat_exec_temperature_humidity{host=*}{}", "$time", "")
+    #$t2 = q("sum:sensehat_exec_temperature_pressure{host=*}{}", "$time", "")
+    #$t_cpu = avg(q("sum:sensehat_exec_temperature_cpu{host=*}{}", "$time", ""))
+    #$t = (($t1 + $t2) / 2)
+    $t_corr = q("sum:exec_netatmo_langerma_Wohnzimmer_Temperature{host=*}{}", "$time", "")
+    $metric_simple = $t_corr
+    $q = avg($metric_simple)
+    $crit_high_value = 28
+    $warn_high_value = 26
+    $crit_low_value = 18
+    $warn_low_value = 20
+    warn = $q > $warn_high_value || $q < $warn_low_value
+    crit = $q >= $crit_high_value || $q <= $crit_low_value
+    $now = epoch()
+    $Ago =  $now-d("$time")
+    $metric = merge(series("warn_low=$warn_low_value", $Ago, $warn_low_value, $now, $warn_low_value), series("warn_high=$warn_high_value", $Ago, $warn_high_value, $now, $warn_high_value), series("crit_low=$crit_low_value", $Ago, $crit_low_value, $now, $crit_low_value),series("crit_high=$crit_high_value", $Ago, $crit_high_value, $now, $crit_high_value), $metric_simple)
+    template = generic
+    unknown = 5m
+    critNotification = default,bosun.annotation
+    warnNotification = default,bosun.annotation
+}
+
+alert environment.temperature.schlafzimmer {
+    $time = 60m
+    #ignoreUnknown = true
+    $alertDescr =  if temp is to high or to low\n
+    #$t1 = q("sum:sensehat_exec_temperature_humidity{host=*}{}", "$time", "")
+    #$t2 = q("sum:sensehat_exec_temperature_pressure{host=*}{}", "$time", "")
+    #$t_cpu = avg(q("sum:sensehat_exec_temperature_cpu{host=*}{}", "$time", ""))
+    #$t = (($t1 + $t2) / 2)
+    $t_corr = q("sum:exec_netatmo_langerma_Schlafzimmer_Temperature{host=*}{}", "$time", "")
+    $metric_simple = $t_corr
+    $q = avg($metric_simple)
+    $crit_high_value = 28
+    $warn_high_value = 26
+    $crit_low_value = 18
+    $warn_low_value = 20
+    warn = $q > $warn_high_value || $q < $warn_low_value
+    crit = $q >= $crit_high_value || $q <= $crit_low_value
+    $now = epoch()
+    $Ago =  $now-d("$time")
+    $metric = merge(series("warn_low=$warn_low_value", $Ago, $warn_low_value, $now, $warn_low_value), series("warn_high=$warn_high_value", $Ago, $warn_high_value, $now, $warn_high_value), series("crit_low=$crit_low_value", $Ago, $crit_low_value, $now, $crit_low_value),series("crit_high=$crit_high_value", $Ago, $crit_high_value, $now, $crit_high_value), $metric_simple)
+    template = generic
+    unknown = 5m
+    critNotification = default,bosun.annotation
+    warnNotification = default,bosun.annotation
+}
+
 alert environment.co2.wohnzimmer {
     $time = 60m
     #ignoreUnknown = true
