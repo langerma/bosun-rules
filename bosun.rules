@@ -693,7 +693,7 @@ alert environment.temperature.wohnzimmer {
     #$t = (($t1 + $t2) / 2)
     $t_corr = q("sum:exec_netatmo_langerma_Wohnzimmer_Temperature{host=*}{}", "$time", "")
     $metric_simple = $t_corr
-    $q = avg($metric_simple)
+    $q = last($metric_simple)
     $crit_high_value = 28
     $warn_high_value = 26
     $crit_low_value = 18
@@ -719,7 +719,7 @@ alert environment.temperature.schlafzimmer {
     #$t = (($t1 + $t2) / 2)
     $t_corr = q("sum:exec_netatmo_langerma_Schlafzimmer_Temperature{host=*}{}", "$time", "")
     $metric_simple = $t_corr
-    $q = avg($metric_simple)
+    $q = last($metric_simple)
     $crit_high_value = 28
     $warn_high_value = 26
     $crit_low_value = 18
@@ -740,7 +740,7 @@ alert environment.co2.wohnzimmer {
     #ignoreUnknown = true
     $alertDescr = checks for co in livingroom\n
     $metric_simple = q("sum:exec_netatmo_langerma_Wohnzimmer_CO2{host=*}", "$time", "")
-    $q = avg($metric_simple)
+    $q = last($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
     $crit_high_value = 1200
@@ -761,7 +761,7 @@ alert environment.co2.schlafzimmer {
     #ignoreUnknown = true
     $alertDescr = checks for co in bedroom\n
     $metric_simple = q("sum:exec_netatmo_langerma_Schlafzimmer_CO2{host=*}", "$time", "")
-    $q = avg($metric_simple)
+    $q = last($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
     $crit_high_value = 1200
