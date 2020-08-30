@@ -52,9 +52,9 @@ macro anomaly.erratic {
 #############
 
 template bosun.annotation {
-  BosunBody = `{"Id":"{{.Id}}","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.q}} on {{.Group.host}}","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{.Group.host}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
-  BosunBodyAnomaly = `{"Id":"{{.Id}}","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.s_current_median | printf "%.2f"}} (then: {{.Eval .Alert.Vars.s_hist_median | printf "%.2f"}})","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{.Group.host}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
-  BosunBodyElastic = `{"Id":"{{.Id}}","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.qmax}} on {{index .Group "host.name.keyword"}}","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{index .Group "host.name.keyword"}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
+  BosunBody = `{"Id":"","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.q}} on {{.Group.host}}","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{.Group.host}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
+  BosunBodyAnomaly = `{"Id":"","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.s_current_median | printf "%.2f"}} (then: {{.Eval .Alert.Vars.s_hist_median | printf "%.2f"}})","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{.Group.host}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
+  BosunBodyElastic = `{"Id":"","Message":"{{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.qmax}} on {{index .Group "host.name.keyword"}}","StartDate":"","EndDate":"","CreationUser":"bosun","Url":"{{.Ack}}","Source":"{{.Alert.Name}}","Host":"{{index .Group "host.name.keyword"}}","Owner":"langerma","Category":"{{.Last.Status}}"}`
 }
 
 notification bosun.annotation {
