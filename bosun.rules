@@ -668,10 +668,10 @@ alert environment.humidity {
     $alertDescr = checks for humidity in livingroom\n
     $metric_simple = q("sum:sensehat_exec_humidity{host=*}", "$time", "")
     $q = avg($metric_simple)
-    $crit_low_value = 13
-    $warn_low_value = 18
-    $crit_high_value = 45
-    $warn_high_value = 40
+    $crit_low_value = 20
+    $warn_low_value = 35
+    $crit_high_value = 70
+    $warn_high_value = 60
     warn = $q < $warn_low_value || $q >= $warn_high_value
     crit = $q <= $crit_low_value || $q > $crit_high_value
     $now = epoch()
