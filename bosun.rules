@@ -77,7 +77,7 @@ notification bosun.annotation.elastic {
 }
 
 notification nodered {
-  post = https://nodered.langerma.org/alert
+  post = https://nodered.langerma.org:443/alert
   bodyTemplate = Nodered
   contentType = application/json
 }
