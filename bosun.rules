@@ -230,8 +230,8 @@ alert bsd.pkg.security {
     warn = $q > 2
     #ignoreUnknown = true
     unknown = 5m
-    warnNotification = default,bosun.annotation
-    critNotification = default,bosun.annotation
+    warnNotification = default,bosun.annotation,nodered
+    critNotification = default,bosun.annotation,nodered
 }
 
 alert bsd.pkg.update {
