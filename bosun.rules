@@ -654,8 +654,8 @@ alert environment.temperature {
     $t_corr = $t - (($t_cpu - $t)/1.2)
     $metric_simple = $t_corr
     $q = avg($metric_simple)
-    $crit_high_value = 30
-    $warn_high_value = 28
+    $crit_high_value = 35
+    $warn_high_value = 30
     $crit_low_value = 18
     $warn_low_value = 20
     warn = $q > $warn_high_value || $q < $warn_low_value
