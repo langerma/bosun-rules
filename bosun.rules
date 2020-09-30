@@ -593,6 +593,23 @@ alert elastic.hadoop {
     critNotification = default,bosun.annotation.elastic
 }
 
+alert elastic.failed_sudo {
+    template = elastic.error
+    #$index = esmonthly("@timestamp","hadoop-","2006.01")
+    $index = esindices("@timestamp","filebeat-7.9.1")
+    $filter=esquery("system.auth.sudo.error", "user NOT in sudoers")
+    $q=escount($index, "host.name.keyword", $filter, "1m", "60m", "")
+    $graph=escount($index, "severity.keyword", $filter, "1m", "65m", "")
+    $qmax=max($q)
+    #ignoreUnknown = false
+    unknownIsNormal = true
+    warn = $qmax > 5
+    crit = $qmax > 10
+    warnNotification = default,bosun.annotation.elastic
+    critNotification = default,bosun.annotation.elastic
+}
+
+
 ############################
 # logstash "cluster" check #
 ############################
