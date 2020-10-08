@@ -837,7 +837,7 @@ template anomaly {
         </table>
         </br>
         {{.Graph .Alert.Vars.graph}}`
-        subject = {{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.s_current_median | printf "%.2f"}} (then: {{.Eval .Alert.Vars.s_hist_median | printf "%.2f"}}) on {{.Group.host}}
+        subject = {{.Last.Status}}: {{.Alert.Name}}: {{.Eval .Alert.Vars.s_current_median | printf "%.2f"}} (then: {{.Eval .Alert.Vars.s_hist_median | printf "%.2f"}}) on {{.Group}}
         inherit = bosun.annotation
 }
 
