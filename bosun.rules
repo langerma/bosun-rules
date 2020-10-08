@@ -308,6 +308,24 @@ alert ping.average_response {
     critNotification = default,bosun.annotation
 }
 
+alert ping.average_response.anomaly {
+    $tpl_desc = "events indexed over all elastic nodes this rate should not drop"
+    $q_duration = "10m"
+    $q_metric = "sum:ping_average_response_ms{host=*}"
+    $q_period = "1d"
+    $q_lookback = 6
+    $g_std_warn = 3
+    $g_std_crit = 8
+    template = anomaly
+    macro = anomaly.inverted
+    ignoreUnknown = true
+    unjoinedOk = true
+    runEvery = 60
+    #unknown = 5m
+    critNotification = default,bosun.annotation.anomaly
+    warnNotification = default,bosun.annotation.anomaly
+}
+
 
 alert elastic.memory {
     template = ex
