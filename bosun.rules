@@ -863,7 +863,7 @@ alert logstash.events {
     $tpl_desc = "events per node this rate should not drop or rise drastically"
     $q_duration = "1h"
     $q_metric = "sum:rate{counter,,1}:logstash_events_in{host=*,pipeline=*}"
-    $q_period = "7d"
+    $q_period = "1h"
     $q_lookback = 5
     $g_std_warn = 20
     $g_std_crit = 30
