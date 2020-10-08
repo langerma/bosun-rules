@@ -320,7 +320,7 @@ alert ping.average_response.anomaly {
     macro = anomaly.inverted
     ignoreUnknown = true
     unjoinedOk = true
-    runEvery = 60
+    runEvery = 6
     #unknown = 5m
     critNotification = default,bosun.annotation.anomaly
     warnNotification = default,bosun.annotation.anomaly
