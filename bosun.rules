@@ -205,6 +205,7 @@ template ex {
 ##############
 # mem_checks #
 ##############
+#
 
 alert unix.memory {
     template = generic
@@ -259,36 +260,36 @@ lookup connectivity {
     entry host=dns {
         warn_loss = 18
         crit_loss = 22
-        warn_resp = 40
-        crit_resp = 50
+        warn_resp = 50
+        crit_resp = 60
         
     }
     entry host=pine* {
         warn_loss = 15
         crit_loss = 20
-        warn_resp = 50
-        crit_resp = 55
+        warn_resp = 60
+        crit_resp = 65
         
     }
     entry host=freebsd* {
-        warn_loss = 5
-        crit_loss = 10
-        warn_resp = 25
-        crit_resp = 35
+        warn_loss = 10
+        crit_loss = 15
+        warn_resp = 35
+        crit_resp = 50
         
     }
     entry host=* {
         warn_loss = 5
         crit_loss = 10
-        warn_resp = 18
-        crit_resp = 30
+        warn_resp = 25
+        crit_resp = 40
         
     }
 }
 
 alert ping.packet_loss {
     template = ex
-    $metric = q("sum:ping_percent_packet_loss{host=*}", "30m", "")
+    $metric = q("sum:ping_percent_packet_loss{host=*}", "10m", "")
     $q = avg($metric)
     crit = $q > lookup("connectivity", "crit_loss")
     warn = $q > lookup("connectivity", "warn_loss")
@@ -297,16 +298,34 @@ alert ping.packet_loss {
     critNotification = default,bosun.annotation
 }
 
-alert ping.average_response {
-    template = ex
-    $metric = q("sum:ping_average_response_ms{host=*}", "120m", "")
-    $q = avg($metric)
-    crit = $q > lookup("connectivity", "crit_resp")
-    warn = $q > lookup("connectivity", "warn_resp")
-    unknown = 6m
-    warnNotification = default,bosun.annotation
-    critNotification = default,bosun.annotation
+alert ping.average_response{
+    $tpl_desc = "events indexed over all elastic nodes this rate should not drop"
+    $q_duration = "10m"
+    $q_metric = "sum:ping_average_response_ms{host=*}"
+    $q_period = "1d"
+    $q_lookback = 7
+    $g_std_warn = 15
+    $g_std_crit = 30
+    template = anomaly
+    macro = anomaly
+    ignoreUnknown = true
+    unjoinedOk = true
+    runEvery = 6
+    #unknown = 5m
+    critNotification = default,bosun.annotation.anomaly
+    warnNotification = default,bosun.annotation.anomaly
 }
+
+#alert ping.average_response {
+#    template = ex
+#    $metric = q("sum:ping_average_response_ms{host=*}", "10m", "")
+#    $q = avg($metric)
+#    crit = $q > lookup("connectivity", "crit_resp")
+#    warn = $q > lookup("connectivity", "warn_resp")
+#    unknown = 6m
+#    warnNotification = default,bosun.annotation
+#    critNotification = default,bosun.annotation
+#}
 
 
 alert elastic.memory {
@@ -703,8 +722,8 @@ alert environment.temperature.wohnzimmer {
     $q = last($metric_simple)
     $crit_high_value = 29
     $warn_high_value = 27
-    $crit_low_value = 18.5
-    $warn_low_value = 18
+    $crit_low_value = 15
+    $warn_low_value = 16
     warn = $q > $warn_high_value || $q < $warn_low_value
     crit = $q >= $crit_high_value || $q <= $crit_low_value
     $now = epoch()
@@ -729,8 +748,8 @@ alert environment.temperature.schlafzimmer {
     $q = last($metric_simple)
     $crit_high_value = 29
     $warn_high_value = 27
-    $crit_low_value = 18.5
-    $warn_low_value = 18
+    $crit_low_value = 15
+    $warn_low_value = 16
     warn = $q > $warn_high_value || $q < $warn_low_value
     crit = $q >= $crit_high_value || $q <= $crit_low_value
     $now = epoch()
@@ -847,8 +866,8 @@ alert elastic.index_events {
     $q_metric = "sum:rate:elasticsearch_indices_indexing_index_total{host=wildcard(*)}"
     $q_period = "10m"
     $q_lookback = 6
-    $g_std_warn = 900
-    $g_std_crit = 1200
+    $g_std_warn = 50
+    $g_std_crit = 100
     template = anomaly
     macro = anomaly
     ignoreUnknown = true
@@ -915,8 +934,8 @@ alert elastic.index_time {
     $q_metric = "sum:rate:elasticsearch_indices_indexing_index_time_in_millis{host=wildcard(*)}"
     $q_period = "10m"
     $q_lookback = 6
-    $g_std_warn = 200
-    $g_std_crit = 300
+    $g_std_warn = 10
+    $g_std_crit = 20
     template = elastic.index_time
     macro = anomaly.inverted
     ignoreUnknown = true
