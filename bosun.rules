@@ -205,7 +205,6 @@ template ex {
 ##############
 # mem_checks #
 ##############
-#
 
 alert unix.memory {
     template = generic
