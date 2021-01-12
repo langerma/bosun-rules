@@ -768,8 +768,8 @@ alert environment.co2.wohnzimmer {
     $q = last($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
-    $crit_high_value = 1200
-    $warn_high_value = 800
+    $crit_high_value = 1500
+    $warn_high_value = 1000
     warn = $q < $warn_low_value || $q >= $warn_high_value
     crit = $q <= $crit_low_value || $q > $crit_high_value
     $now = epoch()
@@ -789,8 +789,8 @@ alert environment.co2.schlafzimmer {
     $q = last($metric_simple)
     $crit_low_value = 100
     $warn_low_value = 300
-    $crit_high_value = 1200
-    $warn_high_value = 800
+    $crit_high_value = 1500
+    $warn_high_value = 1000
     warn = $q < $warn_low_value || $q >= $warn_high_value
     crit = $q <= $crit_low_value || $q > $crit_high_value
     $now = epoch()
