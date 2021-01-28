@@ -747,8 +747,8 @@ alert environment.temperature.schlafzimmer {
     $q = last($metric_simple)
     $crit_high_value = 29
     $warn_high_value = 27
-    $crit_low_value = 15
-    $warn_low_value = 16
+    $crit_low_value = 10
+    $warn_low_value = 13
     warn = $q > $warn_high_value || $q < $warn_low_value
     crit = $q >= $crit_high_value || $q <= $crit_low_value
     $now = epoch()
